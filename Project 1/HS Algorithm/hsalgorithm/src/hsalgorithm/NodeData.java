@@ -7,21 +7,25 @@ public class NodeData {
 	private Message send_plus_message;
 	private Message send_minus_message;
 	
-	private Message receive_plus_message;
-	private Message receive_minus_message;
+	//private Message receive_plus_message;
+	//private Message receive_minus_message;
 	
 	private String isLeader;
+	
+	private int leaderUID;
 	
 	private int plus_UID;	
 	private int minus_UID;
 	
 	public NodeData(int UID,int plus_UID,int minus_UID) {
+		
+		this.leaderUID=-1;
 		this.UID=UID;
 		
-		this.send_minus_message=null;
-		this.send_plus_message=null;
-		this.receive_minus_message=null;
-		this.receive_plus_message=null;
+		this.send_minus_message=new Message(UID,true,1);
+		this.send_plus_message=new Message(UID,true,1);
+		//this.receive_minus_message=null;
+		//this.receive_plus_message=null;
 		
 		this.isLeader="UNKNOWN";
 		
@@ -37,9 +41,15 @@ public class NodeData {
 		this.id = id;
 	}*/
 	
+	public int getLeaderUID() {
+		return leaderUID;
+	}
+	public void setLeaderUID(int leaderUID) {
+		this.leaderUID = leaderUID;
+	}
 	public int getUID() {
 		return UID;
-	}
+	}	
 	public void setUID(int uID) {
 		UID = uID;
 	}
@@ -73,7 +83,7 @@ public class NodeData {
 	public void setMinus_UID(int minus_UID) {
 		this.minus_UID = minus_UID;
 	}
-	public Message getReceive_plus_message() {
+	/*public Message getReceive_plus_message() {
 		return receive_plus_message;
 	}
 	public void setReceive_plus_message(Message receive_plus_message) {
@@ -84,6 +94,6 @@ public class NodeData {
 	}
 	public void setReceive_minus_message(Message receive_minus_message) {
 		this.receive_minus_message = receive_minus_message;
-	}
+	}*/
 	
 }

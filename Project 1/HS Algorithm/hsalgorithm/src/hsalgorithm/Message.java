@@ -3,8 +3,18 @@ package hsalgorithm;
 public class Message {
 	private int UID;
 	private boolean isForwardMessage;
+	
 	private int hops;
 	
+	public Message() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Message(int UID,boolean isForwadMessage,int hops){
+		this.UID=UID;
+		this.isForwardMessage=isForwadMessage;
+		this.hops=hops;				
+	}
 	
 	public int getUID() {
 		return UID;
