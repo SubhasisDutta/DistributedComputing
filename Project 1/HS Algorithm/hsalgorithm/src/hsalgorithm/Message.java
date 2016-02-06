@@ -4,6 +4,8 @@ public class Message {
 	private int UID;
 	private boolean isForwardMessage;
 	private int hops;
+	
+	
 	public int getUID() {
 		return UID;
 	}
