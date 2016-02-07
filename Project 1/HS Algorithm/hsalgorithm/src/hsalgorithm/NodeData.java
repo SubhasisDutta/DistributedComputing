@@ -3,6 +3,7 @@ package hsalgorithm;
 public class NodeData {
 	//private int id;
 	private int UID;
+	private int index;	
 	
 	private Message send_plus_message;
 	private Message send_minus_message;
@@ -17,10 +18,11 @@ public class NodeData {
 	private int plus_UID;	
 	private int minus_UID;
 	
-	public NodeData(int UID,int plus_UID,int minus_UID) {
+	public NodeData(int UID,int index,int plus_UID,int minus_UID) {
 		
 		this.leaderUID=-1;
 		this.UID=UID;
+		this.index=index;
 		
 		this.send_minus_message=new Message(UID,true,1);
 		this.send_plus_message=new Message(UID,true,1);
@@ -40,7 +42,12 @@ public class NodeData {
 	public void setId(int id) {
 		this.id = id;
 	}*/
-	
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
 	public int getLeaderUID() {
 		return leaderUID;
 	}

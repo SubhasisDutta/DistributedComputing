@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 
 public class Main {
-	public static final String INPUT_FILE="input.dat";
+	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\input.dat";
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
 	
@@ -38,9 +38,14 @@ public class Main {
 						
 			for(int i=0;i<noOfNodes;i++){
 				int nUID=Integer.parseInt(stringUIDs[i]);
+				
 				int nplus_UID=Integer.parseInt(stringUIDs[(i+1)%noOfNodes]);
-				int nminus_UID=Integer.parseInt(stringUIDs[(i-1)%noOfNodes]);
-				NodeData nodeData=new NodeData(nUID, nplus_UID, nminus_UID);
+				int minusIndex=(i-1)%noOfNodes;
+				if(minusIndex<0){
+					minusIndex=noOfNodes-1;
+				}
+				int nminus_UID=Integer.parseInt(stringUIDs[minusIndex]);
+				NodeData nodeData=new NodeData(nUID,i, nplus_UID, nminus_UID);
 				processNodes[i]=new ProcessNode(nodeData);
 				processNodes[i].start();				
 			}
@@ -60,10 +65,13 @@ public class Main {
 							}
 						}
 					}
-					
+					//System.out.println("In main Thread");
 				}
 			}
-			
+			for(int i=0;i<noOfNodes;i++){
+				processNodes[i].stop();
+			}
+			System.out.println("Main Ending");
 			
 		}catch(Exception ex){
 			ex.printStackTrace();

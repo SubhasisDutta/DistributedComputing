@@ -40,12 +40,31 @@ public class ProcessNode extends Thread {
 			//send- := null
 			this.nodeData.setSend_minus_message(null);
 			
+			/*if(roundNo==0){
+				this.nodeData.setSend_plus_message(new Message(this.nodeData.getUID(),true,1));
+				this.nodeData.setSend_minus_message(new Message(this.nodeData.getUID(),true,1));
+			}*/
+			
 			
 			//receive message and apply to current data to create new data
 			Message receivedMessage_minus=SharedData.receiveMessage(this.roundNo, this.nodeData.getMinus_UID(), this.nodeData.getUID());			
 			Message receivedMessage_plus=SharedData.receiveMessage(this.roundNo, this.nodeData.getPlus_UID(), this.nodeData.getUID());
-						
-			if(receivedMessage_minus!=null||receivedMessage_plus!=null){
+			
+			
+			if(receivedMessage_minus!=null && receivedMessage_minus.getHops() == 0){
+				System.out.println("Executing");
+				if(receivedMessage_minus.getUID() == this.nodeData.getUID()){
+					//terminate the leader
+					SharedData.runPocess=false;
+					System.out.println("Leader already elected and all informed.");					
+				}else{
+					this.nodeData.setIsLeader("NOT_LEADER");
+					this.nodeData.setLeaderUID(receivedMessage_minus.getUID());
+					this.nodeData.setSend_plus_message(receivedMessage_minus);
+					System.out.println(this.nodeData.getUID()+" knows Leader is "+this.nodeData.getLeaderUID()+" in Round "+roundNo);
+				}
+			}
+			
 				/*
 				 * if the message from i - 1 is (v, out, h) then
 					case
@@ -53,17 +72,22 @@ public class ProcessNode extends Thread {
 						v > u and h = 1: send- : - (v, in, 1)
 						v = u: status := leader
 					endcase*/
-				if(receivedMessage_minus.isForwardMessage()){
+				if(receivedMessage_minus!=null && receivedMessage_minus.isForwardMessage()){
 					int v=receivedMessage_minus.getUID();
 					int u=this.nodeData.getUID();
 					int h=receivedMessage_minus.getHops();
 					
 					if(v>u && h>1){
 						this.nodeData.setSend_plus_message(new Message(v,true,h-1));						
-					}else if(v>u && h=1){
+					}else if(v>u && h==1){
 						this.nodeData.setSend_minus_message(new Message(v,false,1));
 					}else if(v==u){
 						this.nodeData.setIsLeader("LEADER");
+						this.nodeData.setLeaderUID(u);
+						this.nodeData.setSend_plus_message(new Message(u,true,0));
+						//SharedData.runPocess=false;
+						System.out.println("Leader is :"+this.nodeData.getUID());
+						System.out.println("Minus Round :"+roundNo);
 						//Need to think on how to propagate to all 
 					}
 				}
@@ -74,28 +98,84 @@ public class ProcessNode extends Thread {
 						v > u and h -- 1: send+ := (v, in, 1)
 						v = u: status :-- leader
 					endcase*/
+				if(receivedMessage_plus!=null && receivedMessage_plus.isForwardMessage()){
+					int v = receivedMessage_plus.getUID();
+					int u= this.nodeData.getUID();
+					int h = receivedMessage_plus.getHops();
+					
+					if(v>u && h>1){
+						this.nodeData.setSend_minus_message(new Message(v,true,h-1));
+					}else if(v>u && h==1){
+						this.nodeData.setSend_plus_message(new Message(v,false,1));
+					}else if(v==u){
+						this.nodeData.setIsLeader("LEADER");
+						//SharedData.runPocess=false;
+						this.nodeData.setLeaderUID(u);
+						this.nodeData.setSend_plus_message(new Message(u,true,0));
+						
+						System.out.println("Leader is :"+this.nodeData.getUID());
+						System.out.println("Plus Round :"+roundNo);
+					}
+				}
+				
 				
 				/*
 					if the message from i - 1 is (v, in, 1) and v # u then
 						send+ := (v, in, 1)
+						*/
+				if(receivedMessage_minus!=null && !receivedMessage_minus.isForwardMessage()){
+					
+					int v = receivedMessage_minus.getUID();
+					int u= this.nodeData.getUID();
+					//int h = receivedMessage_plus.getHops();
+					if(v!=u){
+						this.nodeData.setSend_plus_message(new Message(v,false,1));
+					}					
+				}
+				
+				/*
 					if the message from i + 1 is (v, in, 1) and v # u then
 						send- := (v, in, 1)
+						*/
+				if(receivedMessage_plus!=null && !receivedMessage_plus.isForwardMessage()){
+					int v = receivedMessage_plus.getUID();
+					int u= this.nodeData.getUID();
+					
+					if(v!=u){
+						this.nodeData.setSend_minus_message(new Message(v,false,1));
+					}
+				}
+				/*
 					if the messages from i - 1 and i + 1 are both (u, in, 1) then
 						phase := phase + 1
 						send+ := (u, out, 2 phase)
 						send- := (u, out, 2 phase)
 				 * 
 				 */
-			}
+				if(receivedMessage_minus!=null && receivedMessage_plus!=null){
+					if(!receivedMessage_minus.isForwardMessage() && !receivedMessage_plus.isForwardMessage()){
+						int v = receivedMessage_plus.getUID();
+						int u= this.nodeData.getUID();
+						
+						if (v==u){
+							this.phaseNo++;
+							this.nodeData.setSend_minus_message(new Message(u, true, (int)Math.pow(2, this.phaseNo)));
+							this.nodeData.setSend_plus_message(new Message(u, true,(int)Math.pow(2, this.phaseNo)));
+						}
+					}
+				}				
+						
 			synchronized (this){
 				try{
+					SharedData.status[this.nodeData.getIndex()]=true;
 					this.wait();
+					
 				} 
 				catch(Exception e){
 					e.printStackTrace();
 				}
 			}
-			this.roundNo++;			
+			this.roundNo++;	
 		}
 	}
 }

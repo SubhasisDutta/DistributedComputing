@@ -8,20 +8,30 @@ public class SharedData {
 	public static boolean[] status;
 	public static boolean runPocess=true;
 	
-	public static void sendMessage(int round,int source,int destination,Message message){
+	public static synchronized void sendMessage(int round,int source,int destination,Message message){
 		String key=round+"|"+source+"|"+destination;
+		System.out.println(key);
+		/*if(message!=null){
+			System.out.println(key+" "+message.getUID()+" "+message.getHops()+" "+message.isForwardMessage());
+		}*/
+		
 		buffer.put(key, message);
 	}
 	
-	public static Message receiveMessage(int round,int source,int destination){
+	public static synchronized Message receiveMessage(int round,int source,int destination){
+		System.out.println("Map Size :"+buffer.size());
 		String key=round+"|"+source+"|"+destination;
+		//System.out.println("Receiving Message for :"+key);
 		if(buffer.containsKey(key)){
-			return buffer.get(key);
+			Message r=buffer.get(key);
+			buffer.remove(key);
+			return r;
 		}
+		buffer.remove(key);
 		return null;
 	}
 	
-	public static void removeMessage(int round,int source,int destination){
+	public static synchronized void removeMessage(int round,int source,int destination){
 		String key=round+"|"+source+"|"+destination;
 		buffer.remove(key);
 	}
