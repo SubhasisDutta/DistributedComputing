@@ -4,14 +4,14 @@ public class ProcessNode extends Thread {
 	
 	private NodeData nodeData;
 	private int phaseNo;
-	private int roundNo;
+	//private int roundNo;
 	
 	public ProcessNode() {
 		//Nothing
 	}
 	
 	ProcessNode(NodeData nodeData){
-		this.roundNo=0;
+		//this.roundNo=0;
 		this.phaseNo=0;
 		this.nodeData=nodeData;
 	}
@@ -27,10 +27,10 @@ public class ProcessNode extends Thread {
 		while(true){
 			//Message Generation function applied to current state or NodeData
 			//send the current value of send+ to process i + 1
-			SharedData.sendMessage(this.roundNo+1, this.nodeData.getUID(), this.nodeData.getPlus_UID(), this.nodeData.getSend_plus_message());
+			SharedData.sendMessage(SharedData.roundNo+1, this.nodeData.getUID(), this.nodeData.getPlus_UID(), this.nodeData.getSend_plus_message());
 			
 			//send the current value of send- to process i - 1
-			SharedData.sendMessage(this.roundNo+1, this.nodeData.getUID(), this.nodeData.getMinus_UID(), this.nodeData.getSend_minus_message());
+			SharedData.sendMessage(SharedData.roundNo+1, this.nodeData.getUID(), this.nodeData.getMinus_UID(), this.nodeData.getSend_minus_message());
 			
 			
 			//Generate message to send to neighbors
@@ -47,8 +47,8 @@ public class ProcessNode extends Thread {
 			
 			
 			//receive message and apply to current data to create new data
-			Message receivedMessage_minus=SharedData.receiveMessage(this.roundNo, this.nodeData.getMinus_UID(), this.nodeData.getUID());			
-			Message receivedMessage_plus=SharedData.receiveMessage(this.roundNo, this.nodeData.getPlus_UID(), this.nodeData.getUID());
+			Message receivedMessage_minus=SharedData.receiveMessage(SharedData.roundNo, this.nodeData.getMinus_UID(), this.nodeData.getUID());			
+			Message receivedMessage_plus=SharedData.receiveMessage(SharedData.roundNo, this.nodeData.getPlus_UID(), this.nodeData.getUID());
 			
 			
 			if(receivedMessage_minus!=null && receivedMessage_minus.getHops() == 0){
@@ -56,12 +56,12 @@ public class ProcessNode extends Thread {
 				if(receivedMessage_minus.getUID() == this.nodeData.getUID()){
 					//terminate the leader
 					SharedData.runPocess=false;
-					System.out.println("Leader already elected and all informed.");					
+					SharedData.writeLine("Leader already elected and all informed.");					
 				}else{
 					this.nodeData.setIsLeader("NOT_LEADER");
 					this.nodeData.setLeaderUID(receivedMessage_minus.getUID());
 					this.nodeData.setSend_plus_message(receivedMessage_minus);
-					System.out.println(this.nodeData.getUID()+" knows Leader is "+this.nodeData.getLeaderUID()+" in Round "+roundNo);
+					SharedData.writeLine(this.nodeData.getUID()+" knows Leader is "+this.nodeData.getLeaderUID()+" in Round "+SharedData.roundNo);
 				}
 			}
 			
@@ -86,8 +86,8 @@ public class ProcessNode extends Thread {
 						this.nodeData.setLeaderUID(u);
 						this.nodeData.setSend_plus_message(new Message(u,true,0));
 						//SharedData.runPocess=false;
-						System.out.println("Leader is :"+this.nodeData.getUID());
-						System.out.println("Minus Round :"+roundNo);
+						SharedData.writeLine("Leader is :"+this.nodeData.getUID());
+						SharedData.writeLine("Minus Round :"+SharedData.roundNo);
 						//Need to think on how to propagate to all 
 					}
 				}
@@ -113,8 +113,8 @@ public class ProcessNode extends Thread {
 						this.nodeData.setLeaderUID(u);
 						this.nodeData.setSend_plus_message(new Message(u,true,0));
 						
-						System.out.println("Leader is :"+this.nodeData.getUID());
-						System.out.println("Plus Round :"+roundNo);
+						SharedData.writeLine("Leader is :"+this.nodeData.getUID());
+						SharedData.writeLine("Plus Round :"+SharedData.roundNo);
 					}
 				}
 				
@@ -174,8 +174,7 @@ public class ProcessNode extends Thread {
 				catch(Exception e){
 					e.printStackTrace();
 				}
-			}
-			this.roundNo++;	
+			}				
 		}
 	}
 }

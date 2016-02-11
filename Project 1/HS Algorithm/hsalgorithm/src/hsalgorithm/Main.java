@@ -1,11 +1,14 @@
 package hsalgorithm;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 public class Main {
 	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\input.dat";
+	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
 	
@@ -32,6 +35,10 @@ public class Main {
 			//Read Second Line
 			String[] stringUIDs=bufferedReader.readLine().split(" ");
 			
+			bufferedReader.close();
+						
+			SharedData.startWriter(OUTPUT_FILE);
+			
 			processNodes = new ProcessNode[noOfNodes];
 			
 			SharedData.status=new boolean[noOfNodes];
@@ -54,7 +61,7 @@ public class Main {
 				Thread.sleep(100);
 				if(SharedData.isRoundComplate()){
 					SharedData.status=new boolean[noOfNodes];
-					round++;
+					SharedData.roundNo++;
 					for(int i=0;i<noOfNodes;i++){
 						synchronized(processNodes[i]){						
 							try{
@@ -71,7 +78,7 @@ public class Main {
 			for(int i=0;i<noOfNodes;i++){
 				processNodes[i].stop();
 			}
-			System.out.println("Main Ending");
+			SharedData.writeLine("Main Ending");
 			
 		}catch(Exception ex){
 			ex.printStackTrace();
