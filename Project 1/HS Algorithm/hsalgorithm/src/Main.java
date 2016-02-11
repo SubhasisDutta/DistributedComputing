@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Main {
-	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\biginput.dat";
-	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
+	public static final String INPUT_FILE="input.dat";//"C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\biginput.dat";
+	public static final String OUTPUT_FILE="output.dat";//"C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
 	
