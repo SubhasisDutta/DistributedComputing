@@ -14,12 +14,15 @@ public class SharedData {
 	public static boolean[] status;
 	public static boolean runPocess=true;
 	public static int roundNo=0;
-	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
 	
-	public static BufferedWriter bufferWriter;
-	public static File outputFile;
-	public static FileWriter fw;
-	public static PrintWriter pw;
+	public static StringBuilder outputString = new StringBuilder();
+	
+	//public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
+	
+	//public static BufferedWriter bufferWriter;
+	//public static File outputFile;
+	//public static FileWriter fw;
+	//public static PrintWriter pw;
 	
 	public static synchronized void sendMessage(int round,int source,int destination,Message message){
 		String key=round+"|"+source+"|"+destination;
@@ -58,7 +61,7 @@ public class SharedData {
 		return true;
 	}
 	
-	public static void startWriter(String OutputFile){
+	/*public static void startWriter(String OutputFile){
 		try{
 			File outputFile = new File(OutputFile);
 			outputFile.createNewFile();
@@ -69,10 +72,10 @@ public class SharedData {
 		}catch(IOException ex){
 			ex.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static synchronized void writeLine(String str){
-		System.out.println(str);
+		//System.out.println(str);
 		try{
 			//File outputFile = new File(OUTPUT_FILE);
 			
@@ -81,7 +84,10 @@ public class SharedData {
 						
 			//bufferWriter.append(str);
 			//bufferWriter.newLine();
-			pw.println(str);
+			//pw.print(str);
+			
+			outputString.append(str+'\n');
+			
 			
 			//bufferWriter.close();
 		}catch(Exception ex){

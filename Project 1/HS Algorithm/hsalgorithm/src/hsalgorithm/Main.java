@@ -5,9 +5,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Main {
-	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\input.dat";
+	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\biginput.dat";
 	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
@@ -37,7 +39,7 @@ public class Main {
 			
 			bufferedReader.close();
 						
-			SharedData.startWriter(OUTPUT_FILE);
+			//SharedData.startWriter(OUTPUT_FILE);
 			
 			processNodes = new ProcessNode[noOfNodes];
 			
@@ -78,7 +80,32 @@ public class Main {
 			for(int i=0;i<noOfNodes;i++){
 				processNodes[i].stop();
 			}
+			
+			
 			SharedData.writeLine("Main Ending");
+			
+			 try{
+		          File fileOutput =new File(OUTPUT_FILE);
+		          fileOutput.createNewFile();
+		          
+		    	  FileWriter fw = new FileWriter(fileOutput,true);
+		    	  BufferedWriter bw = new BufferedWriter(fw);
+		    	  PrintWriter pw = new PrintWriter(bw);
+		    	  
+		    	  //System.out.println(SharedData.outputString.toString());
+		    	  
+		    	  //bw.write(SharedData.outputString.toString());
+		    	  
+		    	  pw.print(SharedData.outputString.toString());
+		    	  pw.close();
+
+		    	  System.out.println("Data successfully appended at the end of file");
+
+		       }catch(IOException ioe){
+		    	   System.out.println("Exception occurred:");
+		    	   ioe.printStackTrace();
+		      }
+			
 			
 		}catch(Exception ex){
 			ex.printStackTrace();
