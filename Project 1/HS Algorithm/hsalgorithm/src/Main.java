@@ -1,4 +1,3 @@
-package hsalgorithm;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,8 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class Main {
-	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\input.dat";
-	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
+	public static final String INPUT_FILE="biginput.dat";
+	public static final String OUTPUT_FILE="output.dat";
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
 	

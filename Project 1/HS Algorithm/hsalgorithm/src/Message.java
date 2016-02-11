@@ -1,4 +1,4 @@
-package hsalgorithm;
+
 
 public class Message {
 	private int UID;
