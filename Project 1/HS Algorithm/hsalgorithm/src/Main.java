@@ -11,14 +11,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class Main {
+
 	public static final String INPUT_FILE="input.dat";
 	//public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\input.dat";
 	public static final String OUTPUT_FILE="output.dat";
 	//public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\output.dat";
+
+	public static final String INPUT_FILE="biginput.dat";
+	public static final String OUTPUT_FILE="output.dat";
+
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
 	
@@ -43,7 +46,9 @@ public class Main {
 			String[] stringUIDs=bufferedReader.readLine().split(" ");
 			
 			bufferedReader.close();
-											
+
+			SharedData.startWriter(OUTPUT_FILE);
+			
 			processNodes = new ProcessNode[noOfNodes];
 			SharedData.writeLine("Execution Started ...");
 			SharedData.status=new boolean[noOfNodes];
@@ -82,8 +87,7 @@ public class Main {
 			for(int i=0;i<noOfNodes;i++){
 				processNodes[i].stop();
 			}
-			
-			
+
 			SharedData.writeLine("Leader Elected .. All Nodes Terminatd.");
 			
 			 try{
@@ -102,9 +106,10 @@ public class Main {
 		       }catch(IOException ioe){
 		    	   System.out.println("Exception occurred:");
 		    	   ioe.printStackTrace();
-		      }
+		      }			
 			
-			
+			SharedData.writeLine("Main Ending");		
+
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
