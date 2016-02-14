@@ -1,4 +1,10 @@
-
+/**
+* @author Subhasis Dutta, Ram Hariesh,Vibin Daniel
+* @email-id sxd150830@utdallas.edu,rxc142330@utdallas.edu,vxd141730@utdallas.edu,
+* @version 1.0
+* 
+* Program to simulate SynchGHS algorithm for leader election in Synchronous general networks
+*/
 
 public class Message {
 	private int UID;
@@ -7,7 +13,7 @@ public class Message {
 	private int hops;
 	
 	public Message() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Message(int UID,boolean isForwadMessage,int hops){

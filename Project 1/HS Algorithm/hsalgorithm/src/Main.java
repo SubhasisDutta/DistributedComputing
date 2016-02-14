@@ -1,4 +1,10 @@
-
+/**
+* @author Subhasis Dutta, Ram Hariesh,Vibin Daniel
+* @email-id sxd150830@utdallas.edu,rxc142330@utdallas.edu,vxd141730@utdallas.edu,
+* @version 1.0
+* 
+* Program to simulate SynchGHS algorithm for leader election in Synchronous general networks
+*/
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,13 +15,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Main {
-	public static final String INPUT_FILE="input.dat";//"C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\biginput.dat";
-	public static final String OUTPUT_FILE="output.dat";//"C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\hsalgorithm\\output.dat";
+	public static final String INPUT_FILE="input.dat";
+	//public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\input.dat";
+	public static final String OUTPUT_FILE="output.dat";
+	//public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\output.dat";
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
-	
-	private int round=0;
-	private int phase=0;
 	
 	public static void main(String[] args){
 		Main main=new Main();
@@ -38,11 +43,9 @@ public class Main {
 			String[] stringUIDs=bufferedReader.readLine().split(" ");
 			
 			bufferedReader.close();
-						
-			//SharedData.startWriter(OUTPUT_FILE);
-			
+											
 			processNodes = new ProcessNode[noOfNodes];
-			
+			SharedData.writeLine("Execution Started ...");
 			SharedData.status=new boolean[noOfNodes];
 						
 			for(int i=0;i<noOfNodes;i++){
@@ -73,8 +76,7 @@ public class Main {
 								
 							}
 						}
-					}
-					//System.out.println("In main Thread");
+					}					
 				}
 			}
 			for(int i=0;i<noOfNodes;i++){
@@ -82,7 +84,7 @@ public class Main {
 			}
 			
 			
-			SharedData.writeLine("Main Ending");
+			SharedData.writeLine("Leader Elected .. All Nodes Terminatd.");
 			
 			 try{
 		          File fileOutput =new File(OUTPUT_FILE);
@@ -90,16 +92,12 @@ public class Main {
 		          
 		    	  FileWriter fw = new FileWriter(fileOutput,true);
 		    	  BufferedWriter bw = new BufferedWriter(fw);
-		    	  PrintWriter pw = new PrintWriter(bw);
-		    	  
-		    	  //System.out.println(SharedData.outputString.toString());
-		    	  
-		    	  //bw.write(SharedData.outputString.toString());
-		    	  
+		    	  PrintWriter pw = new PrintWriter(bw);		    	  
+		    	  		    	  
 		    	  pw.print(SharedData.outputString.toString());
 		    	  pw.close();
 
-		    	  System.out.println("Data successfully appended at the end of file");
+		    	  
 
 		       }catch(IOException ioe){
 		    	   System.out.println("Exception occurred:");
