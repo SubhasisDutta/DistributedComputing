@@ -20,7 +20,7 @@ public class NodeData {
 	
 	private int parentId;
 	
-	private List<NodeData> conectedNeighbours; //destination ID
+	private List<Integer> conectedNeighbours; //destination ID
 	private Map<Integer,Integer> lastNeighbourRoundSend; //(destinationID,lastMessage Sent round NO)
 	private Map<Integer,Message> sendMessage; //(destinationID,Message)
 	private Map<Integer,Boolean> receivedAckOrNack; //(destinationID,true=ack/Nack recived)
@@ -36,8 +36,7 @@ public class NodeData {
 	
 	public void resetAckOrNack(){
 		Map<Integer,Boolean> receivedAckOrNack = new HashMap<Integer, Boolean>();
-		for(NodeData node:conectedNeighbours ){
-			int neighbourId = node.getUID();
+		for(Integer neighbourId:conectedNeighbours ){			
 			receivedAckOrNack.put(neighbourId, false);
 		}
 		this.setReceivedAckOrNack(receivedAckOrNack);
@@ -118,12 +117,12 @@ public class NodeData {
 	}
 
 
-	public List<NodeData> getConectedNeighbours() {
+	public List<Integer> getConectedNeighbours() {
 		return conectedNeighbours;
 	}
 
 
-	public void setConectedNeighbours(List<NodeData> conectedNeighbours) {
+	public void setConectedNeighbours(List<Integer> conectedNeighbours) {
 		this.conectedNeighbours = conectedNeighbours;
 	}
 

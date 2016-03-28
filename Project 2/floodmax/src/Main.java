@@ -90,13 +90,13 @@ public class Main {
 		System.out.println("Data Initilized");
 	}
 	
-	private List<NodeData> getNeighbours(String[] strArr){
-		List<NodeData> neighbours = new ArrayList<NodeData>();
+	private List<Integer> getNeighbours(String[] strArr){
+		List<Integer> neighbours = new ArrayList<Integer>();
 				
 		for(int i=0;i<strArr.length;i++){
 			int r = Integer.parseInt(strArr[i]);
 			if(r == 1){
-				neighbours.add(processNodes[i].getNodeData());
+				neighbours.add(processNodes[i].getNodeData().getUID());
 			}
 		}
 		return neighbours;
@@ -106,8 +106,7 @@ public class Main {
 		Map<Integer,Message> sendMessage = new HashMap<Integer, Message>();
 		Map<Integer,Integer> lastNeighbourRoundSend = new HashMap<Integer, Integer>();
 		Map<Integer,Boolean> receivedAckOrNack = new HashMap<Integer, Boolean>();
-		for(NodeData neigh : node.getConectedNeighbours()){
-			int neighbourId = neigh.getUID();
+		for(Integer neighbourId : node.getConectedNeighbours()){			
 			int nextRound =1 + SharedData.generateRandomNumber();
 			lastNeighbourRoundSend.put(neighbourId, nextRound);
 			sendMessage.put(neighbourId, new Message(sourceId, nextRound,sourceId, false, false));

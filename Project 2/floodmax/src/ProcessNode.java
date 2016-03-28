@@ -50,8 +50,8 @@ public class ProcessNode extends Thread {
 			Map<Integer,Message> sendMessage = new HashMap<Integer, Message>();			
 			//receive message from all neighbors if available for a particular round
 			List<Message> receivedMessages = new ArrayList<Message>();
-			for(NodeData n : nodeData.getConectedNeighbours()){				
-				Message m = SharedData.receiveMessage(SharedData.roundNo, n.getUID(), nodeData.getUID());
+			for(Integer neighbourId : nodeData.getConectedNeighbours()){				
+				Message m = SharedData.receiveMessage(SharedData.roundNo, neighbourId, nodeData.getUID());
 				if(m!=null){
 					receivedMessages.add(m);
 				}
@@ -91,8 +91,7 @@ public class ProcessNode extends Thread {
 				}
 				if(sendNewMessageFlag){
 					nodeData.resetAckOrNack();
-					for(NodeData neigh : nodeData.getConectedNeighbours()){
-						int neighbourId = neigh.getUID();						
+					for(Integer neighbourId : nodeData.getConectedNeighbours()){												
 						int nextRound = getNextRoundForNeighbour(neighbourId);
 						sendMessage.put(neighbourId, new Message(nodeData.getMaxUID(), nextRound,
 								nodeData.getUID(), false, false));
