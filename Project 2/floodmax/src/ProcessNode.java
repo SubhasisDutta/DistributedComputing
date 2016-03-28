@@ -97,7 +97,14 @@ public class ProcessNode extends Thread {
 								nodeData.getUID(), false, false));
 					}					
 				}				
-			}			
+			}/*else{
+				for(Integer neighbourId : nodeData.getConectedNeighbours()){												
+					int nextRound = getNextRoundForNeighbour(neighbourId);
+					sendMessage.put(neighbourId, new Message(nodeData.getMaxUID(), nextRound,
+							nodeData.getUID(), false, false));
+				}
+			}*/
+			
 			nodeData.setSendMessage(sendMessage);
 			try{
 				Thread.sleep(5);

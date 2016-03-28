@@ -19,7 +19,7 @@ import java.util.Map.Entry;
 public class Main {
 
 	//public static final String INPUT_FILE="input.dat";
-	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity2.txt";
+	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity.txt";
 	//public static final String OUTPUT_FILE="output.dat";
 	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\src\\output.dat";
 
