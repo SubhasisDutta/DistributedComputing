@@ -36,9 +36,9 @@ public class SharedData {
 	
 	public static synchronized void sendMessage(int round,int source,int destination,Message message){
 		String key=round+"|"+source+"|"+destination;
-		/*if(message!=null){
+		if(message!=null && (source ==444 || destination == 444)){
 			System.out.println(key+" MAXID="+message.getMaxUID()+" R="+message.isReject()+" A="+message.isAccept());
-		}*/		
+		}		
 		buffer.put(key, message);
 	}
 	

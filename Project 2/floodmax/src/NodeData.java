@@ -20,10 +20,10 @@ public class NodeData {
 	
 	private int parentId;
 	
-	private List<NodeData> conectedNeighbours;
-	private Map<Integer,Integer> lastNeighbourRoundSend;
-	private Map<Integer,Message> sendMessage;
-	private Map<Integer,Boolean> receivedAckOrNack;
+	private List<NodeData> conectedNeighbours; //destination ID
+	private Map<Integer,Integer> lastNeighbourRoundSend; //(destinationID,lastMessage Sent round NO)
+	private Map<Integer,Message> sendMessage; //(destinationID,Message)
+	private Map<Integer,Boolean> receivedAckOrNack; //(destinationID,true=ack/Nack recived)
 	
 	public NodeData(int UID,int index) {		
 		this.leaderUID=-1;

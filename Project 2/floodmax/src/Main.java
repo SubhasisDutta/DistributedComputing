@@ -19,7 +19,7 @@ import java.util.Map.Entry;
 public class Main {
 
 	//public static final String INPUT_FILE="input.dat";
-	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity.txt";
+	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity2.txt";
 	//public static final String OUTPUT_FILE="output.dat";
 	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\src\\output.dat";
 
@@ -130,16 +130,17 @@ public class Main {
 		try{
 			System.out.println("Start Process.");
 			SharedData.status=new boolean[noOfNodes];
-			while(!isConvergecastComplete()){
+			while(!isConvergecastComplete()&& SharedData.roundNo < 20 * noOfNodes){
 				//System.out.println("Main Thread.");
 				Thread.sleep(100);
 				if(SharedData.isRoundComplate()){
 					SharedData.status=new boolean[noOfNodes];
 					SharedData.roundNo++;	
-					if(SharedData.roundNo%10 ==0){
+					if(SharedData.roundNo%1 ==0){
 						System.out.println("Going to Round : "+SharedData.roundNo+" ...");
 						for(int i=0;i<noOfNodes;i++){	
-							System.out.print(processNodes[i].getNodeData().getUID()+"="+processNodes[i].getNodeData().getMaxUID()+"   ");
+							System.out.print(processNodes[i].getNodeData().getUID()+"="+processNodes[i].getNodeData().getMaxUID()
+									+"   Parent="+processNodes[i].getNodeData().getParentId()+"  ");
 							System.out.println(processNodes[i].getNodeData().getReceivedAckOrNack().toString());							
 						}
 					}
@@ -167,10 +168,6 @@ public class Main {
 			for(int i=0;i<noOfNodes;i++){
 				int leaderID = processNodes[i].getNodeData().markLeader();
 				System.out.println(processNodes[i].getNodeData().getUID()+" knows leader is : "+leaderID);				
-			}			
-			for(int i=0;i<noOfNodes;i++){	
-				System.out.print(processNodes[i].getNodeData().getUID()+"="+processNodes[i].getNodeData().getMaxUID()+"   ");
-				System.out.println(processNodes[i].getNodeData().getReceivedAckOrNack().toString());							
 			}
 			for(int i=0;i<noOfNodes;i++){
 				try{
@@ -179,7 +176,7 @@ public class Main {
 					//consume interupt exception
 				}
 			}
-			System.out.println("Compleated in Total Rounds : "+SharedData.roundNo);
+			System.out.println("Compleated in Total Time Units : "+SharedData.roundNo);
 			System.out.println("Process Compleated.");
 		}catch(Exception e){
 			e.printStackTrace();
