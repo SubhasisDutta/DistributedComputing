@@ -14,13 +14,13 @@ import java.io.FileWriter;
 
 public class Main {
 
-	public static final String INPUT_FILE="input.dat";
-	//public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\input.dat";
-	public static final String OUTPUT_FILE="output.dat";
-	//public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\output.dat";
+	//public static final String INPUT_FILE="input.dat";
+	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\input.dat";
+	//public static final String OUTPUT_FILE="output.dat";
+	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 1\\HS Algorithm\\hsalgorithm\\src\\output.dat";
 
-	public static final String INPUT_FILE="biginput.dat";
-	public static final String OUTPUT_FILE="output.dat";
+	//public static final String INPUT_FILE="biginput.dat";
+	//public static final String OUTPUT_FILE="output.dat";
 
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
@@ -88,28 +88,7 @@ public class Main {
 				processNodes[i].stop();
 			}
 
-			SharedData.writeLine("Leader Elected .. All Nodes Terminatd.");
-			
-			 try{
-		          File fileOutput =new File(OUTPUT_FILE);
-		          fileOutput.createNewFile();
-		          
-		    	  FileWriter fw = new FileWriter(fileOutput,true);
-		    	  BufferedWriter bw = new BufferedWriter(fw);
-		    	  PrintWriter pw = new PrintWriter(bw);		    	  
-		    	  		    	  
-		    	  pw.print(SharedData.outputString.toString());
-		    	  pw.close();
-
-		    	  
-
-		       }catch(IOException ioe){
-		    	   System.out.println("Exception occurred:");
-		    	   ioe.printStackTrace();
-		      }			
-			
-			SharedData.writeLine("Main Ending");		
-
+			SharedData.writeLine("Leader Elected .. All Nodes Terminatd.");			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
