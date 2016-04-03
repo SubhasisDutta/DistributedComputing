@@ -19,9 +19,9 @@ import java.util.Map.Entry;
 public class Main {
 
 	//public static final String INPUT_FILE="input.dat";
-	public static final String INPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity.txt";
+	public static String INPUT_FILE;
 	//public static final String OUTPUT_FILE="output.dat";
-	public static final String OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\src\\output.dat";
+	public static String OUTPUT_FILE;
 
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
@@ -29,6 +29,13 @@ public class Main {
 	private String[][] adjacencyMatrix;
 	
 	public static void main(String[] args){
+		if(args.length < 1 ){
+			INPUT_FILE ="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity.txt";
+			OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\src\\output.dat";
+		} else {
+			INPUT_FILE = args[0];
+			OUTPUT_FILE= args[1];
+		}
 		Main main=new Main();
 		//load data from file and start N process threads
 		main.loadData();
@@ -129,20 +136,12 @@ public class Main {
 		try{
 			System.out.println("Start Process.");
 			SharedData.status=new boolean[noOfNodes];
-			while(!isConvergecastComplete()&& SharedData.roundNo < 20 * noOfNodes){
+			while(!isConvergecastComplete()&& SharedData.timeUnit < 20 * noOfNodes){
 				//System.out.println("Main Thread.");
 				Thread.sleep(100);
 				if(SharedData.isRoundComplate()){
 					SharedData.status=new boolean[noOfNodes];
-					SharedData.roundNo++;	
-					if(SharedData.roundNo%1 ==0){
-						System.out.println("Going to Round : "+SharedData.roundNo+" ...");
-						for(int i=0;i<noOfNodes;i++){	
-							System.out.print(processNodes[i].getNodeData().getUID()+"="+processNodes[i].getNodeData().getMaxUID()
-									+"   Parent="+processNodes[i].getNodeData().getParentId()+"  ");
-							System.out.println(processNodes[i].getNodeData().getReceivedAckOrNack().toString());							
-						}
-					}
+					SharedData.timeUnit++;
 					/*System.out.println("Going to Round : "+SharedData.roundNo);					
 					for(int i=0;i<noOfNodes;i++){	
 						//if(processNodes[i].getNodeData().getUID() ==5342){
@@ -175,14 +174,14 @@ public class Main {
 					//consume interupt exception
 				}
 			}
-			System.out.println("Compleated in Total Time Units : "+SharedData.roundNo);
+			System.out.println("Compleated in Total Time Units : "+SharedData.timeUnit);
 			System.out.println("Process Compleated.");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
 	}
-	
+	//change termination condition to parent=-1 and receive ACK from all neighbors
 	private boolean isConvergecastComplete(){		
 		for(int i=0;i<noOfNodes;i++){
 			Map<Integer,Boolean> receivedAckOrNack = processNodes[i].getNodeData().getReceivedAckOrNack();

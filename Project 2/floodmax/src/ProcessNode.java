@@ -51,14 +51,12 @@ public class ProcessNode extends Thread {
 			//receive message from all neighbors if available for a particular round
 			List<Message> receivedMessages = new ArrayList<Message>();
 			for(Integer neighbourId : nodeData.getConectedNeighbours()){				
-				Message m = SharedData.receiveMessage(SharedData.roundNo, neighbourId, nodeData.getUID());
+				Message m = SharedData.receiveMessage(SharedData.timeUnit, neighbourId, nodeData.getUID());
 				if(m!=null){
 					receivedMessages.add(m);
 				}
 			}
-			if(receivedMessages.size()> 0){
-				//System.out.println("Recived Message Round="+SharedData.roundNo+" By Process "+nodeData.getUID());
-				//System.out.println(nodeData.getReceivedAckOrNack().toString());
+			if(receivedMessages.size()> 0){				
 				
 				boolean sendNewMessageFlag = false;
 				for(Message m : receivedMessages){
@@ -78,7 +76,7 @@ public class ProcessNode extends Thread {
 							nodeData.setMaxUID(m.getMaxUID());
 							nodeData.setParentId(m.getSourceId());							
 							System.out.println("UID="+nodeData.getUID()+" got updated to MAXUID="+nodeData.getMaxUID()
-									+" in Round "+SharedData.roundNo);
+									+" in Time Unit "+SharedData.timeUnit);
 							sendNewMessageFlag=true;
 						}else{
 							//need to send a reject message							
@@ -127,7 +125,7 @@ public class ProcessNode extends Thread {
 	private int getNextRoundForNeighbour(int neigh){
 		Map<Integer,Integer> lastNeighbourRoundSend = nodeData.getLastNeighbourRoundSend();
 		int lastRound = lastNeighbourRoundSend.get(neigh);
-		int nextRound = Math.max(lastRound, SharedData.roundNo) + SharedData.generateRandomNumber();
+		int nextRound = Math.max(lastRound, SharedData.timeUnit) + SharedData.generateRandomNumber();
 		lastNeighbourRoundSend.put(neigh,nextRound);
 		return nextRound;		
 	}	
