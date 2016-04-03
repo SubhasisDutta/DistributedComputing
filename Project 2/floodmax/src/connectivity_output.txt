@@ -1,0 +1,15 @@
+Execution Started ...
+Initializing Process Graph...
+Data Initializing
+Start Process.
+UID=323 got updated to MAXUID=2323 in Time Unit 3
+UID=43 got updated to MAXUID=2323 in Time Unit 6
+UID=43 got updated to MAXUID=5342 in Time Unit 18
+UID=323 got updated to MAXUID=5342 in Time Unit 20
+UID=2323 got updated to MAXUID=5342 in Time Unit 23
+43 knows leader is : 5342
+5342 knows leader is : 5342
+323 knows leader is : 5342
+2323 knows leader is : 5342
+Completed in Total Time Units : 58
+Process Completed.

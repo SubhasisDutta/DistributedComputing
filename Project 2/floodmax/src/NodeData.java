@@ -24,7 +24,10 @@ public class NodeData {
 	private Map<Integer,Integer> lastNeighbourRoundSend; //(destinationID,lastMessage Sent round NO)
 	private Map<Integer,Message> sendMessage; //(destinationID,Message)
 	private Map<Integer,Boolean> receivedAckOrNack; //(destinationID,true=ack/Nack recived)
+	private Map<Integer,Boolean> receivedAck; //(destinationID,true=if recived ACK)
 	
+	
+
 	public NodeData(int UID,int index) {		
 		this.leaderUID=-1;
 		this.parentId= -1;		
@@ -60,6 +63,10 @@ public class NodeData {
 	}
 	public void markTrueAckNack(int nId){
 		receivedAckOrNack.put(nId, true);
+	}
+	
+	public void markTrueAck(int nId){
+		receivedAck.put(nId, true);
 	}
 
 	public int getUID() {
@@ -130,7 +137,13 @@ public class NodeData {
 		return receivedAckOrNack;
 	}
 
+	public Map<Integer, Boolean> getReceivedAck() {
+		return receivedAck;
+	}
 
+	public void setReceivedAck(Map<Integer, Boolean> receivedAck) {
+		this.receivedAck = receivedAck;
+	}
 
 
 	public void setReceivedAckOrNack(Map<Integer, Boolean> receivedAckOrNack) {

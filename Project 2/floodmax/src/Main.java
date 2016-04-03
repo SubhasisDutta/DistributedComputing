@@ -19,9 +19,7 @@ import java.util.Map.Entry;
 public class Main {
 
 	//public static final String INPUT_FILE="input.dat";
-	public static String INPUT_FILE;
-	//public static final String OUTPUT_FILE="output.dat";
-	public static String OUTPUT_FILE;
+	public static String INPUT_FILE;	
 
 	private int noOfNodes;
 	private ProcessNode[] processNodes;
@@ -30,11 +28,9 @@ public class Main {
 	
 	public static void main(String[] args){
 		if(args.length < 1 ){
-			INPUT_FILE ="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity.txt";
-			OUTPUT_FILE="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\src\\output.dat";
+			INPUT_FILE ="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity1.txt";			
 		} else {
-			INPUT_FILE = args[0];
-			OUTPUT_FILE= args[1];
+			INPUT_FILE = args[0];			
 		}
 		Main main=new Main();
 		//load data from file and start N process threads
@@ -78,7 +74,7 @@ public class Main {
 	public void initilize(){
 		System.out.println("Execution Started ...");
 		processNodes = new ProcessNode[noOfNodes];
-		System.out.println("Initilizing Process Graph...");
+		System.out.println("Initializing Process Graph...");
 		SharedData.status=new boolean[noOfNodes];
 		//Create blank nodes
 		for(int i=0;i<noOfNodes;i++){
@@ -94,7 +90,7 @@ public class Main {
 			//set the initial send message
 			setInitialSendMessages(n);						
 		}
-		System.out.println("Data Initilized");
+		System.out.println("Data Initializing");
 	}
 	
 	private List<Integer> getNeighbours(String[] strArr){
@@ -113,16 +109,19 @@ public class Main {
 		Map<Integer,Message> sendMessage = new HashMap<Integer, Message>();
 		Map<Integer,Integer> lastNeighbourRoundSend = new HashMap<Integer, Integer>();
 		Map<Integer,Boolean> receivedAckOrNack = new HashMap<Integer, Boolean>();
+		Map<Integer,Boolean> receivedAck = new HashMap<Integer, Boolean>();
 		for(Integer neighbourId : node.getConectedNeighbours()){			
 			int nextRound =1 + SharedData.generateRandomNumber();
 			lastNeighbourRoundSend.put(neighbourId, nextRound);
 			sendMessage.put(neighbourId, new Message(sourceId, nextRound,sourceId, false, false));
 			receivedAckOrNack.put(neighbourId, false);
+			receivedAck.put(neighbourId, false);
 		}
 		node.setLastNeighbourRoundSend(lastNeighbourRoundSend);
 		node.setSendMessage(sendMessage);
 		//set all ack flags to false
 		node.setReceivedAckOrNack(receivedAckOrNack);
+		node.setReceivedAck(receivedAck);
 	}
 	
 	private void start(){
@@ -136,13 +135,13 @@ public class Main {
 		try{
 			System.out.println("Start Process.");
 			SharedData.status=new boolean[noOfNodes];
-			while(!isConvergecastComplete()&& SharedData.timeUnit < 20 * noOfNodes){
+			while(!isConvergecastComplete()&& SharedData.timeUnit < 20 * noOfNodes){//&& SharedData.timeUnit < 20 * noOfNodes
 				//System.out.println("Main Thread.");
 				Thread.sleep(100);
 				if(SharedData.isRoundComplate()){
 					SharedData.status=new boolean[noOfNodes];
 					SharedData.timeUnit++;
-					/*System.out.println("Going to Round : "+SharedData.roundNo);					
+					/*System.out.println("Going to Round : "+SharedData.timeUnit);					
 					for(int i=0;i<noOfNodes;i++){	
 						//if(processNodes[i].getNodeData().getUID() ==5342){
 							System.out.print(processNodes[i].getNodeData().getUID()+"="+processNodes[i].getNodeData().getMaxUID()+"   ");
@@ -174,8 +173,8 @@ public class Main {
 					//consume interupt exception
 				}
 			}
-			System.out.println("Compleated in Total Time Units : "+SharedData.timeUnit);
-			System.out.println("Process Compleated.");
+			System.out.println("Completed in Total Time Units : "+SharedData.timeUnit);
+			System.out.println("Process Completed.");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -193,4 +192,19 @@ public class Main {
 		}		
 		return true;				
 	}
+	
+	private boolean isConvergecastAckComplete(){		
+		for(int i=0;i<noOfNodes;i++){
+			if(processNodes[i].getNodeData().getParentId() == -1){
+				Map<Integer,Boolean> receivedAck = processNodes[i].getNodeData().getReceivedAck();
+				for(Entry<Integer, Boolean> e : receivedAck.entrySet()){			
+					if(e.getValue() == false){
+						return false;
+					}
+				}	
+			}
+		}		
+		return true;				
+	}
+	
 }

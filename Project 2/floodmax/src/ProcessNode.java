@@ -63,6 +63,10 @@ public class ProcessNode extends Thread {
 					if(m.getMaxUID() == -1){
 						//check is it an accept or reject message and do accordingly
 						nodeData.markTrueAckNack(m.getSourceId());
+						if(m.isAccept()){
+							nodeData.markTrueAck(m.getSourceId());
+							//System.out.println(m.getSourceId()+" received an ACk from "+);
+						}
 						//check and send accept to parent
 						boolean isFound=nodeData.checkAckNAck();
 						if(isFound && nodeData.getParentId()!=-1){
@@ -70,6 +74,7 @@ public class ProcessNode extends Thread {
 							int nextRound = getNextRoundForNeighbour(m.getSourceId());
 							sendMessage.put(nodeData.getParentId(), new Message(-1, nextRound, nodeData.getUID(), false, true));
 							nodeData.markTrueAckNack(nodeData.getParentId());
+							//nodeData.markTrueAck(nodeData.getParentId());
 						}
 					}else{						
 						if(nodeData.getMaxUID() < m.getMaxUID()){
