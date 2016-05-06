@@ -28,7 +28,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		if(args.length < 1 ){
-			INPUT_FILE ="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity1.txt";			
+			INPUT_FILE ="C:\\Workspace\\Github\\DistributedComputing\\Project 2\\floodmax\\src\\connectivity.txt";			
 		} else {
 			INPUT_FILE = args[0];			
 		}
@@ -135,20 +135,11 @@ public class Main {
 		try{
 			System.out.println("Start Process.");
 			SharedData.status=new boolean[noOfNodes];
-			while(!isConvergecastComplete()&& SharedData.timeUnit < 20 * noOfNodes){//&& SharedData.timeUnit < 20 * noOfNodes
-				//System.out.println("Main Thread.");
+			while(!isConvergecastComplete()&& SharedData.timeUnit < SharedData.checkConverge(noOfNodes)){				
 				Thread.sleep(100);
 				if(SharedData.isRoundComplate()){
 					SharedData.status=new boolean[noOfNodes];
-					SharedData.timeUnit++;
-					/*System.out.println("Going to Round : "+SharedData.timeUnit);					
-					for(int i=0;i<noOfNodes;i++){	
-						//if(processNodes[i].getNodeData().getUID() ==5342){
-							System.out.print(processNodes[i].getNodeData().getUID()+"="+processNodes[i].getNodeData().getMaxUID()+"   ");
-							System.out.println(processNodes[i].getNodeData().getReceivedAckOrNack().toString());
-						//}
-					}
-					System.out.println();*/
+					SharedData.timeUnit++;					
 					Thread.sleep(2);
 					for(int i=0;i<noOfNodes;i++){
 						synchronized(processNodes[i]){						
@@ -162,6 +153,7 @@ public class Main {
 					}
 				}				
 			}
+			SharedData.check(processNodes);
 			for(int i=0;i<noOfNodes;i++){
 				int leaderID = processNodes[i].getNodeData().markLeader();
 				System.out.println(processNodes[i].getNodeData().getUID()+" knows leader is : "+leaderID);				
@@ -171,9 +163,9 @@ public class Main {
 					processNodes[i].stop();
 				}catch(Exception e){
 					//consume interupt exception
+					e.printStackTrace();
 				}
-			}
-			System.out.println("Completed in Total Time Units : "+SharedData.timeUnit);
+			}				
 			System.out.println("Process Completed.");
 		}catch(Exception e){
 			e.printStackTrace();

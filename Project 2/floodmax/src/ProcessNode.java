@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 * @email-id sxd150830@utdallas.edu,rxc142330@utdallas.edu,vxd141730@utdallas.edu,
 * @version 1.0
 * 
-* Program to simulate SynchGHS algorithm for leader election in Synchronous general networks
+* Program to simulate Floodmax algorithm for leader election in Asynchronous general networks
 */
 
 public class ProcessNode extends Thread {
@@ -64,15 +64,15 @@ public class ProcessNode extends Thread {
 						//check is it an accept or reject message and do accordingly
 						nodeData.markTrueAckNack(m.getSourceId());
 						if(m.isAccept()){
-							nodeData.markTrueAck(m.getSourceId());
-							//System.out.println(m.getSourceId()+" received an ACk from "+);
+							nodeData.markTrueAck(m.getSourceId());							
 						}
 						//check and send accept to parent
 						boolean isFound=nodeData.checkAckNAck();
 						if(isFound && nodeData.getParentId()!=-1){
 							//send ack to parent							
 							int nextRound = getNextRoundForNeighbour(m.getSourceId());
-							sendMessage.put(nodeData.getParentId(), new Message(-1, nextRound, nodeData.getUID(), false, true));
+							sendMessage.put(nodeData.getParentId(), new Message(-1, nextRound, nodeData.getUID(), 
+									false, true));
 							nodeData.markTrueAckNack(nodeData.getParentId());
 							//nodeData.markTrueAck(nodeData.getParentId());
 						}
@@ -80,8 +80,7 @@ public class ProcessNode extends Thread {
 						if(nodeData.getMaxUID() < m.getMaxUID()){
 							nodeData.setMaxUID(m.getMaxUID());
 							nodeData.setParentId(m.getSourceId());							
-							System.out.println("UID="+nodeData.getUID()+" got updated to MAXUID="+nodeData.getMaxUID()
-									+" in Time Unit "+SharedData.timeUnit);
+							System.out.println("UID="+nodeData.getUID()+" got updated to MAXUID="+nodeData.getMaxUID());
 							sendNewMessageFlag=true;
 						}else{
 							//need to send a reject message							

@@ -25,6 +25,6 @@ Corresponding output are output.dat and bigoutput.dat
 Files:
 Main.java -> Execution starts from this. This spans the different nodes and controls the rounds.
 Message.java -> POJO to define the object for Message transfer.
-NodeData.java -> POJO to define the object for each Nodes.
+NodeData.java -> Java Object to define the object for each Nodes.
 ProcessNode.java -> Class for each node. This has the implementation of the HS Algorithm.
 SharedData.java -> Utility Class to help pass information from one process to another.

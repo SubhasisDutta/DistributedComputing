@@ -3,7 +3,7 @@
 * @email-id sxd150830@utdallas.edu,rxc142330@utdallas.edu,vxd141730@utdallas.edu,
 * @version 1.0
 * 
-* Program to simulate SynchGHS algorithm for leader election in Synchronous general networks
+* Program to simulate Floodmax algorithm for leader election in Asynchronous general networks
 */
 import java.util.HashMap;
 import java.util.List;

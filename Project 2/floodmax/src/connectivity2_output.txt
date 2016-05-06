@@ -2,17 +2,17 @@ Execution Started ...
 Initializing Process Graph...
 Data Initializing
 Start Process.
-UID=323 got updated to MAXUID=2323 in Time Unit 7
-UID=3 got updated to MAXUID=323 in Time Unit 9
-UID=3 got updated to MAXUID=2323 in Time Unit 16
-UID=43 got updated to MAXUID=123 in Time Unit 18
-UID=5 got updated to MAXUID=323 in Time Unit 18
-UID=32 got updated to MAXUID=2323 in Time Unit 21
-UID=123 got updated to MAXUID=323 in Time Unit 23
-UID=5 got updated to MAXUID=2323 in Time Unit 26
-UID=43 got updated to MAXUID=323 in Time Unit 46
-UID=123 got updated to MAXUID=2323 in Time Unit 49
-UID=43 got updated to MAXUID=2323 in Time Unit 68
+UID=3 got updated to MAXUID=5
+UID=32 got updated to MAXUID=2323
+UID=323 got updated to MAXUID=2323
+UID=3 got updated to MAXUID=323
+UID=43 got updated to MAXUID=123
+UID=3 got updated to MAXUID=2323
+UID=123 got updated to MAXUID=323
+UID=5 got updated to MAXUID=323
+UID=123 got updated to MAXUID=2323
+UID=5 got updated to MAXUID=2323
+UID=43 got updated to MAXUID=323
 43 knows leader is : 2323
 5 knows leader is : 2323
 323 knows leader is : 2323
@@ -20,5 +20,4 @@ UID=43 got updated to MAXUID=2323 in Time Unit 68
 32 knows leader is : 2323
 123 knows leader is : 2323
 3 knows leader is : 2323
-Completed in Total Time Units : 105
 Process Completed.

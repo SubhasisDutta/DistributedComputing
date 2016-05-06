@@ -2,53 +2,56 @@ Execution Started ...
 Initializing Process Graph...
 Data Initializing
 Start Process.
-UID=2 got updated to MAXUID=323 in Time Unit 3
-UID=48 got updated to MAXUID=444 in Time Unit 4
-UID=90 got updated to MAXUID=999 in Time Unit 6
-UID=4342 got updated to MAXUID=5341 in Time Unit 7
-UID=3 got updated to MAXUID=323 in Time Unit 8
-UID=23 got updated to MAXUID=123 in Time Unit 8
-UID=56 got updated to MAXUID=323 in Time Unit 10
-UID=9 got updated to MAXUID=343 in Time Unit 11
-UID=90 got updated to MAXUID=2323 in Time Unit 11
-UID=95 got updated to MAXUID=999 in Time Unit 11
-UID=123 got updated to MAXUID=323 in Time Unit 12
-UID=32 got updated to MAXUID=312 in Time Unit 16
-UID=43 got updated to MAXUID=312 in Time Unit 16
-UID=3 got updated to MAXUID=999 in Time Unit 18
-UID=343 got updated to MAXUID=5341 in Time Unit 18
-UID=23 got updated to MAXUID=999 in Time Unit 18
-UID=323 got updated to MAXUID=343 in Time Unit 19
-UID=123 got updated to MAXUID=999 in Time Unit 19
-UID=323 got updated to MAXUID=2323 in Time Unit 19
-UID=43 got updated to MAXUID=5341 in Time Unit 20
-UID=123 got updated to MAXUID=2323 in Time Unit 29
-UID=312 got updated to MAXUID=5341 in Time Unit 32
-UID=9 got updated to MAXUID=5341 in Time Unit 33
-UID=2 got updated to MAXUID=2323 in Time Unit 35
-UID=48 got updated to MAXUID=999 in Time Unit 38
-UID=3 got updated to MAXUID=2323 in Time Unit 39
-UID=323 got updated to MAXUID=5341 in Time Unit 40
-UID=999 got updated to MAXUID=2323 in Time Unit 46
-UID=56 got updated to MAXUID=343 in Time Unit 46
-UID=32 got updated to MAXUID=5341 in Time Unit 47
-UID=444 got updated to MAXUID=999 in Time Unit 50
-UID=95 got updated to MAXUID=2323 in Time Unit 51
-UID=48 got updated to MAXUID=2323 in Time Unit 55
-UID=123 got updated to MAXUID=5341 in Time Unit 60
-UID=444 got updated to MAXUID=2323 in Time Unit 66
-UID=23 got updated to MAXUID=2323 in Time Unit 67
-UID=56 got updated to MAXUID=5341 in Time Unit 82
-UID=90 got updated to MAXUID=5341 in Time Unit 84
-UID=999 got updated to MAXUID=5341 in Time Unit 91
-UID=95 got updated to MAXUID=5341 in Time Unit 98
-UID=2323 got updated to MAXUID=5341 in Time Unit 104
-UID=23 got updated to MAXUID=5341 in Time Unit 107
-UID=3 got updated to MAXUID=5341 in Time Unit 116
-UID=2 got updated to MAXUID=5341 in Time Unit 117
-UID=323 got updated to MAXUID=5341 in Time Unit 121
-UID=48 got updated to MAXUID=5341 in Time Unit 132
-UID=444 got updated to MAXUID=5341 in Time Unit 148
+UID=90 got updated to MAXUID=999
+UID=3 got updated to MAXUID=323
+UID=123 got updated to MAXUID=323
+UID=2 got updated to MAXUID=3
+UID=48 got updated to MAXUID=444
+UID=323 got updated to MAXUID=343
+UID=343 got updated to MAXUID=5341
+UID=32 got updated to MAXUID=43
+UID=2 got updated to MAXUID=323
+UID=90 got updated to MAXUID=2323
+UID=32 got updated to MAXUID=312
+UID=4342 got updated to MAXUID=5341
+UID=323 got updated to MAXUID=2323
+UID=95 got updated to MAXUID=323
+UID=43 got updated to MAXUID=312
+UID=56 got updated to MAXUID=323
+UID=23 got updated to MAXUID=123
+UID=43 got updated to MAXUID=5341
+UID=23 got updated to MAXUID=999
+UID=3 got updated to MAXUID=444
+UID=9 got updated to MAXUID=343
+UID=95 got updated to MAXUID=999
+UID=123 got updated to MAXUID=343
+UID=56 got updated to MAXUID=343
+UID=323 got updated to MAXUID=5341
+UID=999 got updated to MAXUID=2323
+UID=123 got updated to MAXUID=999
+UID=312 got updated to MAXUID=5341
+UID=32 got updated to MAXUID=5341
+UID=2 got updated to MAXUID=444
+UID=9 got updated to MAXUID=5341
+UID=3 got updated to MAXUID=2323
+UID=95 got updated to MAXUID=2323
+UID=56 got updated to MAXUID=5341
+UID=2 got updated to MAXUID=2323
+UID=48 got updated to MAXUID=2323
+UID=123 got updated to MAXUID=2323
+UID=444 got updated to MAXUID=2323
+UID=23 got updated to MAXUID=2323
+UID=123 got updated to MAXUID=5341
+UID=90 got updated to MAXUID=5341
+UID=2323 got updated to MAXUID=5341
+UID=323 got updated to MAXUID=5341
+UID=23 got updated to MAXUID=5341
+UID=2 got updated to MAXUID=5341
+UID=999 got updated to MAXUID=5341
+UID=3 got updated to MAXUID=5341
+UID=95 got updated to MAXUID=5341
+UID=48 got updated to MAXUID=5341
+UID=444 got updated to MAXUID=5341
 43 knows leader is : 5341
 5341 knows leader is : 5341
 323 knows leader is : 5341
@@ -69,5 +72,4 @@ UID=444 got updated to MAXUID=5341 in Time Unit 148
 95 knows leader is : 5341
 23 knows leader is : 5341
 56 knows leader is : 5341
-Completed in Total Time Units : 189
 Process Completed.
